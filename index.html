@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>SGP - SISTEMA DE GESTÃO DE PROCESSOS</title>
+	<link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="js/jquery.edatagrid.js"></script>
+	<script type="text/javascript" src="js/datagrid-filter.js"></script>
+	<script type="text/javascript" src="js/easyui-lang-pt_BR.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$("div.easyui-layout").layout();
+			$('#dg').edatagrid({
+				url: 'get_cadastroclientes.php',
+				saveUrl: 'save_cadastroclientes.php',
+				updateUrl: 'update_cadastroclientes.php',
+				destroyUrl: 'destroy_cadastroclientes.php',
+				fitColumns: true
+			});
+			var dg = $('#dg');
+			dg.edatagrid();    // create datagrid
+			dg.edatagrid('enableFilter');    // enable filter
+		});
+	</script>
+</head>
+
+
+<body>
+	<div class="easyui-layout">
+	<h2>SGP - SISTEMA DE GESTÃO DE PROCESSOS</h2>
+	<div class="demo-info" style="margin-bottom:10px">
+		<div class="demo-tip icon-tip">&nbsp;</div>
+		<div>Minímo Produto Viável</div>
+	</div>
+	<table id="dg" title="Cadastro de Processos" style="width:1260px;height:550px; border:1px solid #ccc;"
+			toolbar="#toolbar" pagination="true" idField="id"
+			rownumbers="true" fitColumns="true" singleSelect="true">
+		<thead>
+			<tr>
+				<th field="status_servico" width="17" editor="text">Status</th>
+				<th field="codigo_processo" width="70" editor="text">Codigo Processo</th>
+				<th field="nome_processo" width="89" editor="text">Nome do Processo</th>
+				<th field="empresa_processo" width="45" editor="text">Empresa</th>
+				<th field="area_processo" width="80" editor="text">Área</th>
+				<th field="versao_processo" width="33" editor="text">Versão</th>
+				<th field="vencimento_processo" width="55" editor="easyui-textbox">Vencimento</th>
+			</tr>
+		</thead>
+	</table>
+	<div id="toolbar">
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Novo Processo</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Editar Processo</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">Remover Processo</a>
+	</div>
+
+	<div id="dlg" class="easyui-dialog" style="width:800px;height:470px;padding:10px 20px"
+			closed="true" buttons="#dlg-buttons">
+		<div class="ftitle">Informações do Processo</div>
+		<form id="fm" method="post" novalidate>
+		<div class="fitem">
+					<label>Tipo de Serviço:</label>
+					<input name="servico_processo" class="easyui-combobox" style="width:150px;" url="tipo_servico.php" valueField="servico_processo" textField="servico_processo" data-options="editable:false">
+		</div>
+		<div class="fitem">
+		<label class="label-top">Status do Serviço:</label>
+            	<input name="status_servico" class="easyui-combobox" style="width:200px;" data-options="
+                    showItemIcon: true,
+										editable: false,
+                    data: [
+                        {value:'Aprovado',text:'Aprovado',iconCls:'icon-aprovado'},
+                        {value:'Reprovado',text:'Reprovado',iconCls:'icon-reprovado'},
+                        {value:'save',text:'Pendência',iconCls:'icon-atencao'},
+                        {value:'cancel',text:'Vencido',iconCls:'icon-vencido'},
+                        {value:'undo',text:'Janela de Vencimento',iconCls:'icon-janelavencido'}
+                    ]
+                    ">
+        	</div>
+			<div class="fitem">
+				<label>Codigo:</label>
+				<input name="codigo_processo" style="width:70px;" class="easyui-textbox">
+			</div>
+			<div class="fitem">
+				<label>Nome:</label>
+				<input name="nome_processo" style="width:400px;" class="easyui-textbox">
+			</div>
+			<div class="fitem">
+				<label>Empresa:</label>
+				<input name="empresa_processo" style="width:150px;" class="easyui-combobox" data-options="
+        			valueField: 'nome_emp',
+        			textField: 'nome_emp',
+        			url: 'empresas.php',
+        			onSelect: function(rec){
+            			var url = 'areas.php';
+            			$('area_processo').combobox('reload', url);
+        			}">
+			</div>
+			<div class="fitem">
+				<label>Área:</label>
+				<input name="area_processo" class="easyui-combobox" style="width:400px;" url="areas.php" valueField="nome_area" textField="nome_area"  data-options="editable:false">
+			</div>
+			<div class="fitem">
+				<label>Versão:</label>
+				<input name="versao_processo" class="easyui-numberspinner" style="width:80px;"  data-options="min:1,max:100,editable:false">
+			</div>
+			<div class="fitem">
+				<label>Vencimento:</label>
+				<input name="vencimento_processo" style="width:90px;" class="easyui-textbox" >
+			</div>
+			<div class="fitem">
+				<label>Link do Processo:</label>
+				<input name="bizagi_process_link" class="easyui-textbox">
+			</div>
+			<div class="fitem">
+				<label>Data de Publicação:</label>
+				<input name="dt_publicacao" style="width:90px;" class="easyui-datebox">
+			</div>
+			<div class="fitem">
+				<label>Data de Aprovação:</label>
+				<input name="dt_aprovacao" style="width:90px;" class="easyui-datebox" >
+			</div>
+			<div class="fitem">
+				<label>Data de Criação:</label>
+				<input name="dt_criacao" style="width:90px;" class="easyui-datebox" >
+			</div>
+			<div class="fitem">
+				<label>Dono do Processo:</label>
+				<input name="id_owner" class="easyui-textbox">
+			</div>
+			<div class="fitem">
+				<label>Autor Mapeamento:</label>
+				<select class="easyui-combobox" name="analista_processo">
+				<option value="YARA">YARA</option>
+				<option value="TIAGO">TIAGO</option>
+				<option value="MARCELO">MARCELO</option>
+				<option value="PALOMA">PALOMA</option>
+				</select>
+			</div>
+			<div class="fitem">
+				<label>Observações:</label>
+				<input name="obs_servico" class="easyui-textbox" style="height:60px;" >
+			</div>
+		</form>
+	</div>
+	<div id="dlg-buttons">
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Salvar</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
+	</div>
+	<script type="text/javascript">
+		var url;
+		function newUser(){
+			$('#dlg').dialog('open').dialog('setTitle','Cadastrar Processo');
+			$('#fm').form('clear');
+			url = 'save_cadastroclientes.php';
+		}
+		function editUser(){
+			var row = $('#dg').datagrid('getSelected');
+			if (row){
+				$('#dlg').dialog('open').dialog('setTitle','Editar Processo');
+				$('#fm').form('load',row);
+				url = 'update_cadastroclientes.php?id='+row.id;
+			}
+		}
+		function saveUser(){
+			$('#fm').form('submit',{
+				url: url,
+				onSubmit: function(){
+					return $(this).form('validate');
+				},
+				success: function(result){
+					var result = eval('('+result+')');
+					if (result.errorMsg){
+						$.messager.show({
+							title: 'Error',
+							msg: result.errorMsg
+						});
+					} else {
+						$('#dlg').dialog('close');		// close the dialog
+						$('#dg').datagrid('reload');	// reload the user data
+					}
+				}
+			});
+		}
+		function destroyUser(){
+			var row = $('#dg').datagrid('getSelected');
+			if (row){
+				$.messager.confirm('Confirmar','Você tem certeza que quer deletar este processo da base de dados?',function(r){
+					if (r){
+						$.post('destroy_cadastroclientes.php',{id:row.id},function(result){
+							if (result.success){
+								$('#dg').datagrid('reload');	// reload the user data
+							} else {
+								$.messager.show({	// show error message
+									title: 'Error',
+									msg: result.errorMsg
+								});
+							}
+						},'json');
+					}
+				});
+			}
+		}
+	</script>
+	<style type="text/css">
+		#fm{
+			margin:0;
+			padding:10px 30px;
+		}
+		.ftitle{
+			font-size:14px;
+			font-weight:bold;
+			padding:5px 0;
+			margin-bottom:10px;
+			border-bottom:1px solid #ccc;
+		}
+		.fitem{
+			margin-bottom:5px;
+		}
+		.fitem label{
+			display:inline-block;
+			width:120px;
+		}
+		.fitem input{
+			width:260px;
+		}
+	</style>
+	</div>
+
+</body>
+</html>
