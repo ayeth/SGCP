@@ -62,8 +62,8 @@
 		<div class="ftitle">Informações do Processo</div>
 		<form id="fm" method="post" novalidate>
 		<div class="fitem">
-					<label>Tipo de Serviço:</label>
-					<input name="servico_processo" class="easyui-combobox" style="width:150px;" url="tipo_servico.php" valueField="servico_processo" textField="servico_processo" data-options="editable:false">
+			<label>Tipo de Serviço:</label>
+			<input name="servico_processo" class="easyui-combobox" style="width:150px;" url="tipo_servico.php" valueField="servico_processo" textField="servico_processo" data-options="editable:false">
 		</div>
 		<div class="fitem">
 		<label class="label-top">Status do Serviço:</label>
@@ -71,11 +71,11 @@
                     showItemIcon: true,
 										editable: false,
                     data: [
-                        {value:'app',text:'Aprovado',iconCls:'icon-aprovado'},
-                        {value:'rep',text:'Reprovado',iconCls:'icon-reprovado'},
-                        {value:'save',text:'Pendência',iconCls:'icon-atencao'},
-                        {value:'cancel',text:'Vencido',iconCls:'icon-vencido'},
-                        {value:'undo',text:'Janela de Vencimento',iconCls:'icon-janelavencido'}
+                        {value:'Aprovado',text:'Aprovado',iconCls:'icon-aprovado'},
+                        {value:'Reprovado',text:'Reprovado',iconCls:'icon-reprovado'},
+                        {value:'Pendente',text:'Pendência',iconCls:'icon-atencao'},
+                        {value:'Vencido',text:'Vencido',iconCls:'icon-vencido'},
+                        {value:'Janela de Vencimento',text:'Janela de Vencimento',iconCls:'icon-janelavencido'}
                     ]
                     ">
         	</div>
@@ -89,19 +89,13 @@
 			</div>
 			<div class="fitem">
 				<label>Empresa:</label>
-				<input name="empresa_processo" style="width:150px;" class="easyui-combobox" data-options="
-        			valueField: 'nome_emp',
-        			textField: 'nome_emp',
-        			url: 'empresas.php',
-        			onSelect: function(rec){
-            			var url = 'areas.php';
-            			$('area_processo').combobox('reload', url);
-        			}">
+				<input name="empresa_processo" class="easyui-combobox" style="width:120px;" url="empresas.php" valueField="nome_emp" textField="nome_emp" 
+				data-options="editable:false">
 			</div>
 			<div class="fitem">
 				<label>Área:</label>
-				<input name="area_processo" class="easyui-combobox" style="width:400px;" url="areas.php" valueField="nome_area" textField="nome_area"  data-options="editable:false">
-			</div>
+				<input name="area_processo" class="easyui-combobox" style="width:400px;" url="areas.php" valueField="nome_area" textField="nome_area" 
+				data-options="editable:false">
 			<div class="fitem">
 				<label>Versão:</label>
 				<input name="versao_processo" class="easyui-numberspinner" style="width:80px;"  data-options="min:1,max:100,editable:false">
@@ -141,7 +135,7 @@
 			</div>
 			<div class="fitem">
 				<label>Observações:</label>
-				<input name="obs_servico" class="easyui-textbox" style="height:60px;" >
+				<input name="obs_servico" multiline="true" class="easyui-textbox" style="height:60px;" >
 			</div>
 		</form>
 	</div>
