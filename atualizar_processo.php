@@ -38,9 +38,7 @@ WHERE
 id=$id";
 $result = @mysql_query($sql);
 if ($result){
-	<script>
-		alert("O processo foi atualizado com sucesso");
-	</script>
+	echo "<script>alert('Processo atualizado com sucesso.');</script>";
 	echo json_encode(array(
 	'id' => $id,
 	'servico_processo' => $servico_processo,
