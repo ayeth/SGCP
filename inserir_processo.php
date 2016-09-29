@@ -22,6 +22,7 @@ VALUES
 ('$servico_processo','$status_servico','$codigo_processo','$nome_processo','$empresa_processo','$area_processo','$versao_processo',STR_TO_DATE('$vencimento_processo','%d-%m-%Y'),STR_TO_DATE('$dt_criacao','%d-%m-%Y'),STR_TO_DATE('$dt_publicacao','%d-%m-%Y'),STR_TO_DATE('$dt_aprovacao','%d-%m-%Y'),'$bizagi_process_link','$id_owner','$obs_servico')";
 $result = @mysql_query($sql);
 if ($result){
+	echo "<script>alert('O processo foi inserido com sucesso na base de dados.');</script>";
 	echo json_encode(array(
 	'id' => mysql_insert_id(),
 	'servico_processo' => $servico_processo,
