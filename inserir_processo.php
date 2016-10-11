@@ -11,7 +11,7 @@ $versao_processo = htmlspecialchars($_REQUEST['versao_processo']);
 $dt_criacao = htmlspecialchars($_REQUEST['dt_criacao']);
 $dt_publicacao = htmlspecialchars($_REQUEST['dt_publicacao']);
 $dt_aprovacao = htmlspecialchars($_REQUEST['dt_aprovacao']);
-$bizagi_process_link = htmlspecialchars($_REQUEST['bizagi_process_link']);
+$bizagi_process_link = addslashes($_REQUEST['bizagi_process_link']);
 $id_owner = htmlspecialchars($_REQUEST['id_owner']);
 $obs_servico = htmlspecialchars($_REQUEST['obs_servico']);
 
