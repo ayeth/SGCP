@@ -56,6 +56,7 @@ if ($result){
 	'id_owner' => $id_owner,
 	'obs_servico' => $obs_servico
 	));
+	
 } else {
 	echo json_encode(array('errorMsg'=>'Some errors occured.'));
 }
