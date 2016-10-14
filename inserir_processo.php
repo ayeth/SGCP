@@ -18,8 +18,7 @@ $obs_servico = htmlspecialchars($_REQUEST['obs_servico']);
 include 'conn.php';
 
 $sql = "INSERT INTO id_processos
-(
-servico_processo,
+(servico_processo,
 status_servico,
 codigo_processo,
 nome_processo,
@@ -32,26 +31,25 @@ dt_publicacao,
 dt_aprovacao,
 bizagi_process_link,
 id_owner,
-obs_servico
-		)
+obs_servico)
+
 VALUES
-(
-'$servico_processo',
+
+('$servico_processo',
 '$status_servico',
 '$codigo_processo',
 '$nome_processo',
 '$empresa_processo',
 '$area_processo',
 '$versao_processo',
-STR_TO_DATE('$vencimento_processo','%d-%m-%Y'),
-STR_TO_DATE('$dt_criacao','%d-%m-%Y'),
-STR_TO_DATE('$dt_publicacao','%d-%m-%Y'),
-STR_TO_DATE('$dt_aprovacao','%d-%m-%Y'),
+STR_TO_DATE('$vencimento_processo','%d/%m/%Y'),
+STR_TO_DATE('$dt_criacao','%d/%m/%Y'),
+STR_TO_DATE('$dt_publicacao','%d/%m/%Y'),
+STR_TO_DATE('$dt_aprovacao','%d/%m/%Y'),
 '$bizagi_process_link',
 '$id_owner',
-'$obs_servico'
-		)";
-$result = @mysql_query($sql);
+'$obs_servico')";
+$result = @mysql_query($sql) or die(mysql_error());
 if ($result){
 	echo "<script>alert('O processo foi inserido com sucesso.');</script>";
 	echo json_encode(array(
