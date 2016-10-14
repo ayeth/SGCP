@@ -68,14 +68,14 @@ Class ExcelWriter{
         $header = <<<EOH
         <html xmlns:o="urn:schemas-microsoft-com:office:office"
                xmlns:x="urn:schemas-microsoft-com:office:excel"
-                xmlns="http://www.w3.org/TR/REC-html40">
+                xmlns="https://www.w3.org/TR/2014/REC-html5-20141028/">
 
                 <head>
-                <meta http-equiv=Content-Type content="text/html; charset=us-ascii">
+                <meta http-equiv=Content-Type content="text/html; charset=utf8">
                 <meta name=ProgId content=Excel.Sheet>
                 <!--[if gte mso 9]><xml>
                  <o:DocumentProperties>
-                  <o:LastAuthor>Sriram</o:LastAuthor>
+                  <o:LastAuthor>XXXX</o:LastAuthor>
                   <o:LastSaved>2005-01-02T07:46:23Z</o:LastSaved>
                   <o:Version>10.2625</o:Version>
                  </o:DocumentProperties>
