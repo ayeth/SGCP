@@ -19,6 +19,7 @@
 				saveUrl: 'inserir_processo.php',
 				updateUrl: 'atualizar_processo.php',
 				destroyUrl: 'deletar_processo.php',
+				exportarExcel: 'exemploexcel.php',
 				fitColumns: true
 			});
 			var dg = $('#dg');
@@ -55,6 +56,7 @@
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">Novo Processo</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Editar Processo</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">Remover Processo</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-undo" plain="true" onclick="parent.location='exportarexcel.php'">Exportar Processos</a>
 	</div>
 
 	<div id="dlg" class="easyui-dialog" style="width:800px;height:470px;padding:10px 20px"
@@ -125,10 +127,6 @@
 				<input name="id_owner" class="easyui-textbox">
 			</div>
 			<div class="fitem">
-				<label>Autor Mapeamento:</label>
-				<input name="analista_processo" class="easyui-combobox" style="width:200px;" url="analistaprocesso.php" valueField="analistaProcess" textField="analistaProcess" data-options="editable:false">
-			</div>
-			<div class="fitem">
 				<label>Observações:</label>
 				<input name="obs_servico" multiline="true" class="easyui-textbox" style="height:60px;" >
 			</div>
@@ -143,14 +141,14 @@
 		function newUser(){
 			$('#dlg').dialog('open').dialog('setTitle','Cadastrar Processo');
 			$('#fm').form('clear');
-			url = 'save_cadastroclientes.php';
+			url = 'inserir_processo.php';
 		}
 		function editUser(){
 			var row = $('#dg').datagrid('getSelected');
 			if (row){
 				$('#dlg').dialog('open').dialog('setTitle','Editar Processo');
 				$('#fm').form('load',row);
-				url = 'update_cadastroclientes.php?id='+row.id;
+				url = 'atualizar_processo.php?id='+row.id;
 			}
 		}
 		function saveUser(){
@@ -178,7 +176,7 @@
 			if (row){
 				$.messager.confirm('Confirmar','Você tem certeza que quer deletar este processo da base de dados?',function(r){
 					if (r){
-						$.post('destroy_cadastroclientes.php',{id:row.id},function(result){
+						$.post('deletar_processo.php',{id:row.id},function(result){
 							if (result.success){
 								$('#dg').datagrid('reload');	// reload the user data
 							} else {
