@@ -11,18 +11,49 @@ $versao_processo = htmlspecialchars($_REQUEST['versao_processo']);
 $dt_criacao = htmlspecialchars($_REQUEST['dt_criacao']);
 $dt_publicacao = htmlspecialchars($_REQUEST['dt_publicacao']);
 $dt_aprovacao = htmlspecialchars($_REQUEST['dt_aprovacao']);
-$bizagi_process_link = addslashes($_REQUEST['bizagi_process_link']);
+$bizagi_process_link = htmlspecialchars($_REQUEST['bizagi_process_link']);
 $id_owner = htmlspecialchars($_REQUEST['id_owner']);
 $obs_servico = htmlspecialchars($_REQUEST['obs_servico']);
 
 include 'conn.php';
 
-$sql = "INSERTO INTO id_processos(servico_processo,status_servico,codigo_processo,nome_processo,empresa_processo,area_processo,versao_processo,vencimento_processo,dt_criacao,dt_publicacao,dt_aprovacao,bizagi_process_link,id_owner,obs_servico)
+$sql = "INSERT INTO id_processos
+(
+servico_processo,
+status_servico,
+codigo_processo,
+nome_processo,
+empresa_processo,
+area_processo,
+versao_processo,
+vencimento_processo,
+dt_criacao,
+dt_publicacao,
+dt_aprovacao,
+bizagi_process_link,
+id_owner,
+obs_servico
+		)
 VALUES
-('$servico_processo','$status_servico','$codigo_processo','$nome_processo','$empresa_processo','$area_processo','$versao_processo',STR_TO_DATE('$vencimento_processo','%d-%m-%Y'),STR_TO_DATE('$dt_criacao','%d-%m-%Y'),STR_TO_DATE('$dt_publicacao','%d-%m-%Y'),STR_TO_DATE('$dt_aprovacao','%d-%m-%Y'),'$bizagi_process_link','$id_owner','$obs_servico')";
+(
+'$servico_processo',
+'$status_servico',
+'$codigo_processo',
+'$nome_processo',
+'$empresa_processo',
+'$area_processo',
+'$versao_processo',
+STR_TO_DATE('$vencimento_processo','%d-%m-%Y'),
+STR_TO_DATE('$dt_criacao','%d-%m-%Y'),
+STR_TO_DATE('$dt_publicacao','%d-%m-%Y'),
+STR_TO_DATE('$dt_aprovacao','%d-%m-%Y'),
+'$bizagi_process_link',
+'$id_owner',
+'$obs_servico'
+		)";
 $result = @mysql_query($sql);
 if ($result){
-	echo "<script>alert('O processo foi inserido com sucesso na base de dados.');</script>";
+	echo "<script>alert('O processo foi inserido com sucesso.');</script>";
 	echo json_encode(array(
 	'id' => mysql_insert_id(),
 	'servico_processo' => $servico_processo,
