@@ -70,6 +70,6 @@ if ($result){
 	'obs_servico' => $obs_servico
 	));
 } else {
-	echo json_encode(array('errorMsg'=>'Some errors occured.'));
+	echo json_encode(array('errorMsg'=>'Algum erro ocorreu, contate o administrador do sistema.'));
 }
 ?>
