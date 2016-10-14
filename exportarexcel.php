@@ -24,7 +24,7 @@
    $resultado = mysql_query($consulta);
    if($resultado==true){
       while($linha = mysql_fetch_array($resultado)){ 
-         $myArr=array($linha['status_servico'],$linha['codigo_processo'],$linha['nome_processo'],$linha['empresa_processo'],$linha['area_processo'],$linha['versao_processo'],$linha['vencimento_processo'],$linha['bizagi_process_link'],$linha['dt_publicacao'],$linha['dt_aprovacao'],$linha['dt_criacao'],$linha['dt_criacao'],$linha['id_owner'],$linha['obs_servico']);
+         $myArr=array($linha['status_servico'],$linha['codigo_processo'],$linha['nome_processo'],$linha['empresa_processo'],$linha['area_processo'],$linha['versao_processo'],$linha['vencimento_processo'],$linha['bizagi_process_link'],$linha['dt_publicacao'],$linha['dt_aprovacao'],$linha['dt_criacao'],$linha['id_owner'],$linha['obs_servico']);
 
          $excel->writeLine($myArr);
       }
